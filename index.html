@@ -2,21 +2,28 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta tag crucial para versatilidade em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Exame de Certificação - Teste de Acesso</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            padding-bottom: 2rem;
-        }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding-bottom: 2rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
         .step-card {
-            transition: all 0.5s ease-in-out;
-            animation: fadeIn 0.5s ease-in-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.5s ease-out;
             border-left: 4px solid transparent; 
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -31,6 +38,8 @@
             border-radius: 0.5rem;
             margin-right: 1rem;
             line-height: 1;
+            display: inline-flex;
+            align-items: center;
         }
 
         .step-content-wrapper {
@@ -39,6 +48,19 @@
             justify-content: space-between;
             gap: 1.5rem; 
         }
+
+        /* Ajuste para ecrãs pequenos (Mobile) */
+        @media (max-width: 640px) {
+            .step-content-wrapper {
+                flex-direction: row; /* Mantém o botão ao lado mas reduz gap */
+                gap: 0.75rem;
+            }
+            .advance-button {
+                width: 4rem !important;
+                height: 4rem !important;
+            }
+        }
+
         .step-description-area {
             flex-grow: 1;
         }
@@ -57,24 +79,24 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); 
             outline: 2px solid rgba(16, 185, 129, 0.5); 
             outline-offset: 1px;
-            margin-top: -1rem;
             flex-shrink: 0;
+            /* Evita destaque azul ao tocar em telemóveis */
+            -webkit-tap-highlight-color: transparent;
         }
 
         .advance-button:hover:not(:disabled) {
             transform: translateY(-2px);
             background-color: #059669;
-            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4), 0 4px 6px -4px rgba(16, 185, 129, 0.2); 
-            outline: 3px solid rgba(16, 185, 129, 0.7); 
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4); 
         }
 
         .advance-button:active:not(:disabled) {
-            transform: translateY(1px);
+            transform: scale(0.95);
         }
 
         .advance-button:disabled {
             cursor: not-allowed;
-            opacity: 0.4;
+            opacity: 0.3;
             filter: grayscale(100%); 
             box-shadow: none;
             transform: none;
@@ -82,9 +104,13 @@
         }
         
         .advance-button-icon {
-            fill: white;
-            width: 80%;
-            height: 80%;
+            fill: none;
+            stroke: white;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            width: 55%;
+            height: 55%;
         }
 
         .highlight {
@@ -100,21 +126,23 @@
 
         .completed-card {
             border-left-color: #10b981;
-            opacity: 0.8;
+            opacity: 0.7;
+            background-color: #f8fafc !important;
         }
         .active-card {
             box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.15);
-            outline: 2px solid #3b82f6;
+            border-color: #3b82f6;
+            background-color: white;
         }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 min-h-screen p-4 md:p-8">
 
     <div class="container mx-auto max-w-4xl">
-        
         <header class="text-center mb-8 md:mb-12">
+            <div class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Norma Técnica ILSSI</div>
             <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">📚 POP - Teste de Disponibilidade do Exame</h1>
-            <p class="text-lg text-stone-600">Confirmação obrigatória: utilize o <span class="subtitle-bold">botão verde</span> para validar cada passo.</p>
+            <p class="text-lg text-stone-600 max-w-2xl mx-auto">Confirmação obrigatória: utilize o <span class="subtitle-bold text-emerald-600">botão verde</span> lateral para validar cada passo e avançar no protocolo.</p>
         </header>
 
         <main id="content-container">
@@ -124,13 +152,11 @@
 
     <script>
         const sopSteps = [
-            // Secção 1: Teste de Acesso (Antiga Secção 2)
             { id: "1.1", category: "Teste de Acesso", title: "Acesso à Plataforma 🌐", icon: "🌐", description: "Entrar no site oficial: <code class='bg-stone-200 text-stone-800 px-2 py-1 rounded'>www.ilssi.org</code> e clicar em *Login*." },
             { id: "1.2", category: "Teste de Acesso", title: "Credenciais de Acesso 🔑", icon: "🔑", description: "Inserir o seu *Username* (email facultado ao formador) e a *Password* (recebida por email ou via formador)." },
             { id: "1.3", category: "Teste de Acesso", title: "Navegação: *Portals* 🧭", icon: "🧭", description: "Após entrar na conta, localize e clique no menu *Portals* na barra superior." },
             { id: "1.4", category: "Teste de Acesso", title: "Verificação do Exame ✅", icon: "✅", description: "Selecione *Exam Dashboard*. Verifique se o exame esperado está listado e disponível." },
             
-            // Secção 2: Antes do Exame (Antiga Secção 3)
             { id: "2.1", category: "Antes do Exame", title: "Equipamento e Documento 🆔", icon: "🆔", description: "Tenha o *telemóvel* pronto (com câmara funcional) e um documento de identificação *físico com fotografia*." },
             { id: "2.2", category: "Antes do Exame", title: "Acesso Antecipado ⏰", icon: "⏰", description: "Aceda à plataforma *10 minutos antes* da hora marcada para o exame." },
             
@@ -145,7 +171,6 @@
                 description: "Câmara ligada e som em silêncio. Qualquer dúvida deve ser enviada via *chat* ao formador/*proctor*." 
             },
 
-            // Secção 3: Dicas de Sucesso (Antiga Secção 4)
             { id: "3.1", category: "Dicas de Sucesso", title: "Material de Apoio 🧮", icon: "🧮", description: "Prepare *calculadora básica* e *folha de rascunho*. Os cálculos são simples mas exigem calma." },
             { id: "3.2", category: "Dicas de Sucesso", title: "Gestão do Tempo 🏃", icon: "🏃", description: "Não se detenha demasiado numa pergunta difícil. *Anote o número* e avance para garantir o ritmo." },
             { id: "3.3", category: "Dicas de Sucesso", title: "Revisão Final 🔄", icon: "🔄", description: "Use o tempo restante para rever as questões marcadas antes de submeter o exame." }
@@ -156,11 +181,7 @@
         const sopStepsContainer = document.getElementById('sop-steps');
 
         function highlightText(text) {
-            const englishTerms = [
-                'email', 'username', 'password', 'login', 'portals', 
-                'exam dashboard', 'chat', 'proctor'
-            ].map(term => term.toLowerCase());
-            
+            const englishTerms = ['email', 'username', 'password', 'login', 'portals', 'exam dashboard', 'chat', 'proctor'].map(term => term.toLowerCase());
             return text.replace(/\*(.*?)\*/g, function(match, content) {
                 let innerHTML = content.trim();
                 let isEnglish = englishTerms.some(term => innerHTML.toLowerCase().includes(term));
@@ -171,7 +192,8 @@
         function getAdvanceButtonSVG() {
             return `
                 <svg class="advance-button-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 50 85 L 30 60 L 45 60 L 45 15 L 55 15 L 55 60 L 70 60 Z" fill="white" />
+                    <line x1="50" y1="15" x2="50" y2="85" />
+                    <polyline points="20,55 50,85 80,55" />
                 </svg>
             `;
         }
@@ -180,42 +202,39 @@
             if (step.category !== currentCategory) {
                 currentCategory = step.category;
                 const header = document.createElement('div');
-                header.className = 'mt-10 mb-4';
+                header.className = 'mt-10 mb-4 px-2';
                 header.innerHTML = `
-                    <h2 class="text-2xl font-bold text-stone-700 border-b-2 border-stone-200 pb-2">${step.category}</h2>
+                    <h2 class="text-xl md:text-2xl font-bold text-stone-700 border-b-2 border-stone-200 pb-2">${step.category}</h2>
                 `;
                 sopStepsContainer.appendChild(header);
             }
 
             const card = document.createElement('div');
             card.id = `step-${step.id}`;
-            card.className = `step-card p-6 rounded-lg shadow-lg mb-4 ${step.isWarning ? 'bg-red-50 border-red-500' : 'bg-white border-stone-200'} active-card`;
-            
-            const descriptionHtml = highlightText(step.description);
-            const titleHtml = highlightText(step.title);
+            card.className = `step-card p-4 md:p-6 rounded-xl shadow-md mb-4 border ${step.isWarning ? 'bg-red-50 border-red-200' : 'bg-white border-stone-200'} active-card`;
             
             card.innerHTML = `
-                <h3 class="flex items-start text-xl font-semibold ${step.isWarning ? 'text-red-800' : 'text-blue-800'} mb-3">
+                <h3 class="flex items-start text-lg md:text-xl font-bold ${step.isWarning ? 'text-red-800' : 'text-blue-900'} mb-3">
                     <span class="step-id">${step.id}</span>
-                    <span class="pt-1">${step.icon} ${titleHtml}</span>
+                    <span class="pt-0.5">${step.icon} ${highlightText(step.title)}</span>
                 </h3>
-                
                 <div class="step-content-wrapper">
                     <div class="step-description-area md:pl-10">
-                        <p class="${step.isWarning ? 'text-red-700 font-medium' : 'text-stone-700'}">
-                            ${descriptionHtml}
+                        <p class="text-sm md:text-base ${step.isWarning ? 'text-red-700 font-medium' : 'text-stone-700'}">
+                            ${highlightText(step.description)}
                         </p>
                     </div>
-                    
-                    <button id="advance-button-${step.id}" 
-                            class="advance-button"
-                            title="Confirmar leitura e avançar">
+                    <button id="advance-button-${step.id}" class="advance-button" title="Confirmar e avançar">
                         ${getAdvanceButtonSVG()}
                     </button>
                 </div>
             `;
             sopStepsContainer.appendChild(card);
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Scroll suave garantido em todos os browsers
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 50);
             
             setupStepInteractions(step.id);
         }
@@ -225,40 +244,25 @@
             const currentCard = document.getElementById(`step-${stepId}`);
             const isLastStep = sopSteps.findIndex(s => s.id === stepId) === sopSteps.length - 1;
 
-            if (isLastStep) {
-                advanceButton.addEventListener('click', () => {
-                    advanceButton.disabled = true;
-                    currentCard.classList.remove('active-card');
-                    currentCard.classList.add('completed-card');
+            advanceButton.addEventListener('click', () => {
+                advanceButton.disabled = true;
+                currentCard.classList.remove('active-card');
+                currentCard.classList.add('completed-card');
+                
+                if (isLastStep) {
                     const finalMessage = document.createElement('div');
-                    finalMessage.className = 'text-center text-xl font-bold text-green-700 p-6 mt-8 bg-green-100 rounded-xl';
-                    finalMessage.innerHTML = '✅ Confirmação concluída! Obrigado pela verificação.';
+                    finalMessage.className = 'text-center text-lg font-bold text-green-700 p-8 mt-8 bg-green-50 rounded-2xl border-2 border-dashed border-green-200 animate-pulse';
+                    finalMessage.innerHTML = '🎯 Verificação Completa!<br><span class="text-sm font-normal">Pode agora iniciar o seu exame com total segurança técnica. Boa sorte!</span>';
                     sopStepsContainer.appendChild(finalMessage);
                     finalMessage.scrollIntoView({ behavior: 'smooth' });
-                });
-            } else {
-                advanceButton.addEventListener('click', handleAdvance);
-            }
+                } else {
+                    handleAdvance();
+                }
+            });
         }
 
         function handleAdvance() {
-            const previousStepIndex = currentStepIndex;
             currentStepIndex++; 
-
-            if (previousStepIndex >= 0) {
-                const previousStepId = sopSteps[previousStepIndex].id;
-                const previousCard = document.getElementById(`step-${previousStepId}`);
-                const previousButton = document.getElementById(`advance-button-${previousStepId}`);
-                
-                if (previousButton) {
-                    previousButton.disabled = true;
-                }
-                if (previousCard) {
-                    previousCard.classList.remove('active-card');
-                    previousCard.classList.add('completed-card'); 
-                }
-            }
-            
             if (currentStepIndex < sopSteps.length) {
                 renderStepContent(sopSteps[currentStepIndex]);
             }
