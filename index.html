@@ -5,7 +5,7 @@
     <!-- Meta tag crucial para versatilidade em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Exame de Certificação - Teste de Acesso</title>
+    <title>Exame de Certificação - Teste de Acesso e Exame</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
@@ -140,8 +140,8 @@
 
     <div class="container mx-auto max-w-4xl">
         <header class="text-center mb-8 md:mb-12">
-            <div class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Norma Técnica ILSSI</div>
-            <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">📚 POP - Teste de Disponibilidade do Exame</h1>
+            <div class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">Exame Certificação</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">📚 SOP - Teste de Disponibilidade do Exame</h1>
             <p class="text-lg text-stone-600 max-w-2xl mx-auto">Confirmação obrigatória: utilize o <span class="subtitle-bold text-emerald-600">botão verde</span> lateral para validar cada passo e avançar no protocolo.</p>
         </header>
 
@@ -166,14 +166,14 @@
             { id: "2.3.2", category: "Antes do Exame", title: "Captura de Documento 📸", icon: "📸", description: "Siga as instruções para fotografar o seu documento 🆔 e o seu rosto para validação." },
             { id: "2.4", category: "Antes do Exame", title: "Início do Exame ▶️", icon: "▶️", description: "Concluída a validação de identidade, poderá avançar para o *início do exame*." },
             
-            { id: "2.5", category: "Antes do Exame", title: "Regra de Permanência ⚠️", icon: "⚠️", description: "Uma vez iniciado, *não pode sair da plataforma*. Se fechar a janela, o exame termina automaticamente.", isWarning: true },
+            { id: "2.5", category: "Antes do Exame", title: "Regra de Permanência ⚠️", icon: "⚠️", description: "Uma vez iniciado, *não pode sair da plataforma*. Se fechar a janela, o exame PODE terminar automaticamente.", isWarning: true },
             { id: "2.6", category: "Antes do Exame", title: "Conduta e Comunicação 🤫", icon: "🤫", 
                 description: "Câmara ligada e som em silêncio. Qualquer dúvida deve ser enviada via *chat* ao formador/*proctor*." 
             },
 
             { id: "3.1", category: "Dicas de Sucesso", title: "Material de Apoio 🧮", icon: "🧮", description: "Prepare *calculadora básica* e *folha de rascunho*. Os cálculos são simples mas exigem calma." },
-            { id: "3.2", category: "Dicas de Sucesso", title: "Gestão do Tempo 🏃", icon: "🏃", description: "Não se detenha demasiado numa pergunta difícil. *Anote o número* e avance para garantir o ritmo." },
-            { id: "3.3", category: "Dicas de Sucesso", title: "Revisão Final 🔄", icon: "🔄", description: "Use o tempo restante para rever as questões marcadas antes de submeter o exame." }
+            { id: "3.2", category: "Dicas de Sucesso", title: "Gestão do Tempo 🏃", icon: "🏃", description: "Não fique muito tempo numa pergunta. *Aponte o seu número numa folha de papel* e avance." },
+            { id: "3.3", category: "Dicas de Sucesso", title: "Revisão Final 🔄", icon: "🔄", description: "No final, antes de submeter, use o restante tempo para rever o exame dando prioridade às perguntas que registou." }
         ];
 
         let currentStepIndex = -1; 
